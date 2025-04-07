@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Math Tools - Thomas Bailey</title>
+  <style>
+    :root {
+      --bg-light: #c9f1ff;
+      --bg-dark: #1e1e1e;
+      --card-light: #ffffff;
+      --card-dark: #2c2c2c;
+      --text-light: #000;
+      --text-dark: #fff;
+      --primary: #2a9d8f;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-light);
+      transition: all 0.3s ease;
+    }
+
+    body.dark {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    .container {
+      background-color: var(--card-light);
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+      margin: 3rem auto;
+      transition: background-color 0.3s ease;
+    }
+
+    body.dark .container {
+      background-color: var(--card-dark);
+    }
+
+    h1 {
+      color: var(--primary);
+    }
+
+    input, select {
+      padding: 0.5rem;
+      font-size: 1rem;
+      margin: 0.3rem;
+    }
+
+    button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 1rem;
+      font-size: 1rem;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .result {
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+
+    .nav-button {
+      margin-top: 2rem;
+    }
+
+    .dark-toggle {
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Math Tools</h1>
+    <p>Created by Thomas Bailey – Class 8.C</p>
+
+    <h2>Simple Calculator</h2>
+    <input type="number" id="num1" placeholder="First number" />
+    <select id="operator">
+      <option value="+">+</option>
+      <option value="-">−</option>
+      <option value="*">×</option>
+      <option value="/">÷</option>
+    </select>
+    <input type="number" id="num2" placeholder="Second number" />
+    <br/>
+    <button onclick="calculate()">Calculate</button>
+    <p class="result" id="calcResult"></p>
+
+    <div class="nav-button">
+      <a href="game.html"><button>Go to Math Challenge</button></a>
+    </div>
+
+    <div class="dark-toggle">
+      <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
+    </div>
+  </div>
+
+  <script>
+    let lastResult = null;
+
+    function calculate() {
+      const num1Input = document.getElementById("num1");
+      const num2Input = document.getElementById("num2");
+      const op = document.getElementById("operator").value;
+      const resultEl = document.getElementById("calcResult");
+
+      let num1 = parseFloat(num1Input.value);
+      let num2 = parseFloat(num2Input.value);
+
+      if (isNaN(num1)) num1 = lastResult;
+      if (isNaN(num1) || isNaN(num2)) {
+        resultEl.textContent = "Please enter valid numbers.";
+        resultEl.style.color = "red";
+        return;
+      }
+
+      let result;
+      switch (op) {
+        case "+": result = num1 + num2; break;
+        case "-": result = num1 - num2; break;
+        case "*": result = num1 * num2; break;
+        case "/":
+          if (num2 === 0) {
+            resultEl.textContent = "Cannot divide by zero!";
+            resultEl.style.color = "red";
+            return;
+          }
+          result = num1 / num2; break;
+      }
+
+      lastResult = result;
+      resultEl.textContent = `Result: ${result}`;
+      resultEl.style.color = "black";
+      num1Input.value = result;
+      num2Input.value = '';
+    }
+
+    function toggleDarkMode() {
+      const isDark = document.body.classList.toggle("dark");
+      localStorage.setItem("darkModeHome", isDark);
+    }
+
+    if (localStorage.getItem("darkModeHome") === "true") {
+      document.body.classList.add("dark");
+    }
+  </script>
+</body>
+</html>
