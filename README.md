@@ -7,8 +7,7 @@ It includes a simple calculator and a 12-question math game that increases in di
 
 ## 🔗 Live Project
 
-👉 [Click here to try the game on GitHub Pages](https://your-username.github.io/math-challenge/)  
-(*Replace `your-username` with your GitHub username once deployed.*)
+👉 [Click here to try the game on GitHub Pages](https://tom-vigilant.github.io/math-challenge/)  
 
 ---
 
